@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent camera_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                Uri photoURI = FileProvider.getUriForFile(MainActivity.this, BuildConfig.APPLICATION_ID + ".provider", getttFile());
+                Uri photoURI = FileProvider.getUriForFile(MainActivity.this, BuildConfig.APPLICATION_ID + ".provider", getFile());
                 camera_intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(camera_intent, REQUEST_IMAGE_CAPTURE);
             }
@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
     }
 
 
-    private File getttFile() {
+    private File getFile() {
 
         File folder = new File(Environment.getExternalStorageDirectory(),"image_calendar");
         File image_file = new File(folder, "cam_image.jpg");
