@@ -32,6 +32,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.button);
         imageView = (ImageView) findViewById(R.id.window);
+        
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +51,18 @@ public class MainActivity extends Activity {
         File image_file = new File(folder, "cam_image.jpg");
         return image_file;
     }
+    
+    Intent calendarIntent = new Intent(Intent.ACTION_INSERT, CalendarContract.Events.CONTENT_URI);
+        calendarIntent.setType("vnd.android.cursor.item/event");
+        calendarIntent.putExtra(CalendarContract.Events.TITLE, "Lit Party");
+        calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, "Pritchard");
+        calendarIntent.putExtra(CalendarContract.Events.DESCRIPTION, "BBQ");
+
+        GregorianCalendar calDate = new GregorianCalendar(2017, 10, 07);
+        calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+        calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calDate.getTimeInMillis());
+        calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calDate.getTimeInMillis());
+        startActivity(calendarIntent);
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
