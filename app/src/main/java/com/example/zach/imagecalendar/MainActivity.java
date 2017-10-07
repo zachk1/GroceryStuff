@@ -56,5 +56,31 @@ public class MainActivity extends Activity {
         String path = "sdcard/image_calendar/cam_image.jpg";
         imageView.setImageDrawable(Drawable.createFromPath(path));
     }
+    
+    public void specCalendarEvent (String tit, String loc, String desc, String year, String month, String day)
+    {
+        title = tit;
+        location = loc;
+        description = desc;
+        this.year = year;
+        this.month = month;
+        this.day = day;
+
+        int intYear = Integer.parseInt(year);
+        int intMonth = Integer.parseInt(month);
+        int intDay = Integer.parseInt(day);
+
+        Intent calendarIntent = new Intent(Intent.ACTION_INSERT, CalendarContract.Events.CONTENT_URI);
+        calendarIntent.setType("vnd.android.cursor.item/event");
+        calendarIntent.putExtra(CalendarContract.Events.TITLE, title);
+        calendarIntent.putExtra(CalendarContract.Events.EVENT_LOCATION, location);
+        calendarIntent.putExtra(CalendarContract.Events.DESCRIPTION, description);
+
+        GregorianCalendar calDate = new GregorianCalendar(intYear, intMonth, intDay);
+        calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true);
+        calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calDate.getTimeInMillis());
+        calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calDate.getTimeInMillis());
+        startActivity(calendarIntent);
+    }
 }
 
